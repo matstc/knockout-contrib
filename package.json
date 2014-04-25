@@ -1,0 +1,21 @@
+{
+  "name": "knockout-contrib",
+  "version": "0.0.1",
+  "description": "binding handlers and extensions for knockout",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "underscore": "*",
+    "knockout": "3.1.0",
+    "jquery": "2.1.0"
+  },
+  "devDependencies": {
+    "karma": "*",
+    "karma-coffee-preprocessor": "*",
+    "phantomjs": "*",
+    "karma-phantomjs-launcher": "*",
+    "karma-jasmine": "*"
+  },
+  "author": "Matthieu Tanguay-Carel"
+}
