@@ -10,10 +10,14 @@ ko.bindingHandlers.currency = {
 
 ko.bindingHandlers.ellipsis = {
   update: (element, valueAccessor, allBindingsAccessor) ->
-
     jElement = $(element)
-    width = parseInt(jElement.css('width') || jElement.parent("[width!='']").css('width'), 10)
-    length = width / 6
+
+    if allBindingsAccessor? and allBindingsAccessor().length?
+      length = allBindingsAccessor().length
+    else
+      width = parseInt(jElement.css('width') || jElement.parent("[width!='']").css('width'), 10)
+      length = width / 6
+
     if length < 6 then length = 6
 
     string = ko.utils.unwrapObservable(valueAccessor())
