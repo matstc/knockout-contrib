@@ -10,9 +10,9 @@
 
   copyProperties = (destination, source) ->
     for key in Object.keys source
-      if ko.isObservable(destination[key])
+      if ko.isWriteableObservable(destination[key])
         destination[key] ko.unwrap source[key]
-      else
+      else unless ko.isComputed(destination[key])
         destination[key] = source[key]
 
   ko.observableArray.fn.refresh = (array) ->
