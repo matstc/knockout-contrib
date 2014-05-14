@@ -21,5 +21,7 @@
     for item in array
       observed = _.find @(), (observed) -> predicate(observed, item)
       (@push item; continue) if not observed?
-      copyProperties(observed, item) if not item.updatedAt? or item.updatedAt > observed.updatedAt
+      copyProperties(observed, item) if not item.updatedAt? or
+        not observed.updatedAt? or
+        item.updatedAt > observed.updatedAt
 )()
