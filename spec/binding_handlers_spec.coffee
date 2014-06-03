@@ -2,7 +2,7 @@ describe "Ellipsis binding handler", ->
   it "abbreviates a long string", ->
     element = $("<div style='width:60px'></div>")
     ko.bindingHandlers.ellipsis.update(element[0], -> "this is a long sentence")
-    expect(element.text()).toBe "this is..."
+    expect(element.text()).toBe "this..."
 
   it "keeps at least three characters from the initial string", ->
     element = $("<div style='width:1px'></div>")

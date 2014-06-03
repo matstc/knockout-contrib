@@ -10,19 +10,16 @@ ko.bindingHandlers.currency = {
 
 ko.bindingHandlers.ellipsis = {
   update: (element, valueAccessor, allBindingsAccessor) ->
+
     jElement = $(element)
+    string = ko.utils.unwrapObservable(valueAccessor())
+    jElement.text string
 
-    if allBindingsAccessor? and allBindingsAccessor().length?
-      length = allBindingsAccessor().length
-    else
-      width = parseInt(jElement.css('width') || jElement.parent("[width!='']").css('width'), 10)
-      length = width / 6
-
+    width = jElement.width() || jElement.parent("[width!='']").width()
+    length = width / 8
     if length < 6 then length = 6
 
-    string = ko.utils.unwrapObservable(valueAccessor())
-    
-    if string.length < length or string.length < 4 then return jElement.text(string)
+    if string.length < length or string.length < 4 then return
 
     ellipsis = string.substr(0, length - 3) + '...'
 
@@ -32,6 +29,7 @@ ko.bindingHandlers.ellipsis = {
     anchor = $('<a>' + ellipsis + '</a>')
     anchor.click allBindingsAccessor().ellipsisClick
     anchor.appendTo element
+
     undefined
 }
 
