@@ -36,3 +36,25 @@ ko.bindingHandlers.ellipsis = {
 ko.bindingHandlers.ellipsis.init = (element, valueAccessor, allBindingsAccessor) ->
   $(window).on 'resize', ->
     ko.bindingHandlers.ellipsis.update(element, valueAccessor, allBindingsAccessor)
+
+ko.bindingHandlers.delayed = {
+  init: (element, valueAccessor, allBindings, viewModel, bindingContext) ->
+    delay = ko.unwrap(allBindings().delay || 500)
+    ko.virtualElements.childNodes(element).forEach (node) ->
+      node.style.display = 'none' if node.style?
+
+    loader = $("<img src='" + ko.unwrap(allBindings().src) + "'>")[0]
+    ko.virtualElements.insertAfter(element, loader)
+
+    setTimeout ->
+      ko.applyBindingsToDescendants(bindingContext, element)
+      ko.virtualElements.childNodes(element).forEach (node) ->
+        node.style.display = '' if node.style?
+
+      ko.removeNode loader
+    , delay
+
+    { controlsDescendantBindings: true }
+}
+
+ko.virtualElements.allowedBindings.delayed = true
